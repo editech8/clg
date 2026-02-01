@@ -1,0 +1,36 @@
+.menuLines {
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 100vh;
+  background-color: #025185;
+  transition: transform 0.5s ease;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+  font-size: 25px;
+
+}
+.drawer.Open {
+    transform: translateX(300px);
+}
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3491d313;
+    z-index: 90;
+}
+.items{
+    font-size: 18px;
+}

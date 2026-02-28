@@ -2,6 +2,7 @@
   background-color: transparent;
   border: none;
   color: #ffffff;
+  cursor: pointer;
 }
 .drawer {
   position: fixed;
@@ -33,4 +34,14 @@
 }
 .items{
     font-size: 18px;
+}
+.category {
+  cursor: pointer;
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  text-align: start;
 }

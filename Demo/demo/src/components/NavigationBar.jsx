@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./css/NavigationBar.css";
 import Drawer from "./Drawer";
+import { searchProduct } from "../context/searchProduct";
 
 const NavigationBar = () => {
+  const { searchedProduct, setSearchedProduct } = useContext(searchProduct);
+
   return (
     <>
       <div className="navbar">
-        <div className="lines"><Drawer /></div>
+        <div className="lines">
+          <Drawer />
+        </div>
         <div className="logo">Brand Logo</div>
         <div className="sections">
           <button>Home</button>
@@ -15,7 +20,15 @@ const NavigationBar = () => {
           <button>Contact Us</button>
         </div>
         <div className="search">
-          <input type="text" id="search" placeholder="Search here..."/>
+          <input
+            type="text"
+            id="search"
+            onChange={(e) => {
+              setSearchedProduct(e.target.value);
+            }}
+            value={searchedProduct}
+            placeholder="Search here..."
+          />
           <label htmlFor="search">🔍</label>
         </div>
       </div>

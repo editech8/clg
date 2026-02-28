@@ -1,0 +1,16 @@
+.main{
+    height: 100vh;
+}
+.navigationBar{
+    height: 60px;
+    width: 100vw;
+    position: fixed;
+    top: 0px;
+}
+.products{
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 90vw;
+    margin-left: 4vw;
+}

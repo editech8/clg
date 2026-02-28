@@ -17,7 +17,7 @@ const Login = () => {
   }
   return (
     <>
-      <div className="main">
+      <div className="loginMain">
         <div className="formMain">
           <h2 className="login">Login</h2>
           <form className="form" 

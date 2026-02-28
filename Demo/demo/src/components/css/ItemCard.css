@@ -1,0 +1,40 @@
+.cardMain {
+  height: 300px;
+  width: 220px;
+  background-color: rgb(252, 249, 245);
+  padding: 20px;
+  border-radius: 30px;
+  margin-left: 50px;
+  margin-top: 50px;
+  box-shadow: rgba(132, 132, 132, 0.444) 5px 5px 5px 5px;
+}
+.cardTitle{
+    height: 70px;
+    overflow: hidden;
+}
+.cardImage {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardImage > img {
+  height: inherit;
+  overflow: scroll;
+}
+.disc {
+  font-size: 12px;
+  height: 55px;
+  overflow: hidden;
+}
+.rating {
+  font-size: 12px;
+  font-weight: 500;
+}
+.price {
+  font: 14px;
+  padding-top: 10px;
+  font-weight: 700;
+  position: relative;
+  left: 105px;
+}

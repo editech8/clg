@@ -1,45 +1,83 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import NavigationBar from "./NavigationBar";
-import Drawer from "./Drawer";
+import "./css/Home.css";
+import ItemCard from "./ItemCard";
+import { useContext } from "react";
+import { whichProduct } from "../context/whichProduct";
+import { searchProduct } from "../context/searchProduct";
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const { searchedProduct } = useContext(searchProduct);
+
+  const { category } = useContext(whichProduct);
+
+  const [isDataArrived, setIsDataArrived] = useState(false);
+  const [result, setResult] = useState([]);
+
   useEffect(() => {
     async function categoriseItems(APIres) {
       try {
-        const menClothig = APIres.filter((val) => {
-          if (val.category === "men's clothing") return val;
-        });
-        const jewelery = APIres.filter((val) => {
-          if (val.category === "jewelery") return val;
-        });
-        const electronics = APIres.filter((val) => {
-          if (val.category === "electronics") return val;
-        });
-        const womenClothing = APIres.filter((val) => {
-          if (val.category === "women's clothing") return val;
-        });
-        console.log(menClothig, jewelery, electronics, womenClothing);
+        if (category === "result") {
+          setResult(APIres);
+        } else if (searchedProduct) {
+          setResult(() => {
+            return APIres.filter((val) => {
+              let tempSearch = searchedProduct.toLowerCase();
+              if (val.title.toLowerCase().includes(tempSearch)) {
+                return val;
+              }
+            });
+          });
+        } else {
+          setResult(() => {
+            return APIres.filter((val) => {
+              if (val.category === category) {
+                return val;
+              }
+            });
+          });
+        }
+
+        setIsDataArrived(true);
       } catch {}
     }
-    let result = [];
+
     async function fetchAPI() {
       try {
         const response = await fetch("https://fakestoreapi.com/products");
-        result = await response.json();
-        console.log(result);
-        categoriseItems(result);
+        let data = await response.json();
+        setResult(data);
+        categoriseItems(data);
       } catch (err) {
         console.log(err);
       }
     }
     fetchAPI();
-  }, []);
+  }, [category, searchedProduct]);
 
   return (
-    <>
-      <NavigationBar />
-    </>
+    <div className="main">
+      <div className="navigationBar">
+        <NavigationBar />
+      </div>
+      <div className="products">
+        {isDataArrived
+          ? result.map((val) => {
+              return (
+                <ItemCard
+                  key={val.id}
+                  id={val.id}
+                  image={val.image}
+                  price={val.price}
+                  title={val.title}
+                  rating={val.rating}
+                  description={val.description}
+                />
+              );
+            })
+          : "Not arrived"}
+      </div>
+    </div>
   );
 };
 

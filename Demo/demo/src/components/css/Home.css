@@ -9,9 +9,22 @@
     z-index: 1000;
 }
 .products{
-    margin-top: 100px;
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     width: 90vw;
     margin-left: 4vw;
+}
+.categoryLable {
+    font-size: 40px;
+    color: black;
+    font-weight: 700;
+    margin-left: 8vw;
+    margin-top: 13vh;
+}
+.totalPrice{
+    position: relative;
+    bottom: 0;
+    font-size: 2.5rem;
+    font-weight: 600;
 }

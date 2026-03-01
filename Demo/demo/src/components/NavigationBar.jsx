@@ -2,10 +2,14 @@ import React, { useContext } from "react";
 import "./css/NavigationBar.css";
 import Drawer from "./Drawer";
 import { searchProduct } from "../context/searchProduct";
+import { FaShoppingCart } from "react-icons/fa";
+import { isCartActive } from "../context/cartActive";
 
 const NavigationBar = () => {
   const { searchedProduct, setSearchedProduct } = useContext(searchProduct);
-  // console.log(searchedProduct)
+
+  const { cartActive, setCartActive } = useContext(isCartActive);
+
   return (
     <>
       <div className="navbar">
@@ -18,6 +22,14 @@ const NavigationBar = () => {
           <button>Services</button>
           <button>Products</button>
           <button>Contact Us</button>
+          <button
+            onClick={() => {
+              setCartActive((prev) => !prev);
+            }}
+          >
+            <FaShoppingCart />
+            <span className="cartCount">6</span>
+          </button>
         </div>
         <div className="search">
           <input

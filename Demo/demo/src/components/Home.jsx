@@ -2,17 +2,27 @@ import React, { useEffect, useState, useRef } from "react";
 import NavigationBar from "./NavigationBar";
 import "./css/Home.css";
 import ItemCard from "./ItemCard";
+import CartCard from "./CartCard";
 import { useContext } from "react";
 import { whichProduct } from "../context/whichProduct";
 import { searchProduct } from "../context/searchProduct";
+import { isCartActive } from "../context/cartActive";
+import { cartProducts } from "../context/cartProducts";
 
 const Home = () => {
   const { searchedProduct } = useContext(searchProduct);
 
   const { category } = useContext(whichProduct);
 
+  const { cartActive, setCartActive } = useContext(isCartActive);
+
+  const { cart, setCart } = useContext(cartProducts);
+
   const [isDataArrived, setIsDataArrived] = useState(false);
   const [result, setResult] = useState([]);
+  const [categoryLable, setCategoryLable] = useState(category);
+
+  const totalPrice = cart.reduce((acc, val) => val.price + acc, 0).toFixed(2);
 
   useEffect(() => {
     // async function categoriseItems(APIres) {
@@ -73,19 +83,30 @@ const Home = () => {
         console.log(err);
       }
     }
+    if (cartActive) {
+      setCategoryLable("Cart");
+    } else if (category === "result") {
+      setCategoryLable("All categories");
+    } else {
+      setCategoryLable(category);
+    }
+
     fetchAPI();
-  }, [category, searchedProduct]);
+  }, [category, searchedProduct, cartActive]);
 
   return (
     <div className="main">
       <div className="navigationBar">
         <NavigationBar />
       </div>
+      <h2 className="categoryLable">{categoryLable} : </h2>
       <div className="products">
-        {isDataArrived
-          ? result.map((val) => {
+        {cartActive ? (
+          <>
+            {cart.map((val) => {
               return (
-                <ItemCard
+                <CartCard
+                  product={val}
                   key={val.id}
                   id={val.id}
                   image={val.image}
@@ -95,8 +116,27 @@ const Home = () => {
                   description={val.description}
                 />
               );
-            })
-          : "Not arrived"}
+            })}
+            <p className="totalPrice">Total Price: ${totalPrice}</p>
+          </>
+        ) : isDataArrived ? (
+          result.map((val) => {
+            return (
+              <ItemCard
+                product={val}
+                key={val.id}
+                id={val.id}
+                image={val.image}
+                price={val.price}
+                title={val.title}
+                rating={val.rating}
+                description={val.description}
+              />
+            );
+          })
+        ) : (
+          "Not arrived"
+        )}
       </div>
     </div>
   );

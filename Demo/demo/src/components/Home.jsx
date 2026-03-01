@@ -15,39 +15,60 @@ const Home = () => {
   const [result, setResult] = useState([]);
 
   useEffect(() => {
-    async function categoriseItems(APIres) {
-      try {
-        if (category === "result") {
-          setResult(APIres);
-        } else if (searchedProduct) {
-          setResult(() => {
-            return APIres.filter((val) => {
-              let tempSearch = searchedProduct.toLowerCase();
-              if (val.title.toLowerCase().includes(tempSearch)) {
-                return val;
-              }
-            });
-          });
-        } else {
-          setResult(() => {
-            return APIres.filter((val) => {
-              if (val.category === category) {
-                return val;
-              }
-            });
-          });
-        }
+    // async function categoriseItems(APIres) {
+    //   try {
+    //     // if (category === "result") {
+    //     //   setResult(APIres);
+    //     // } else if (searchedProduct) {
+    //     //   setResult(() => {
+    //     //     return APIres.filter((val) => {
+    //     //       let tempSearch = searchedProduct.toLowerCase();
+    //     //       if (val.title.toLowerCase().includes(tempSearch)) {
+    //     //         return val;
+    //     //       }
+    //     //     });
+    //     //   });
+    //     // } else {
+    //     //   setResult(() => {
+    //     //     return APIres.filter((val) => {
+    //     //       if (val.category === category) {
+    //     //         return val;
+    //     //       }
+    //     //     });
+    //     //   });
+    //     // }
 
-        setIsDataArrived(true);
-      } catch {}
-    }
+    //     if (category === APIres)
+
+    //     if (category === "result") {
+    //       setResult(APIres);
+    //     } else
+
+    //     setIsDataArrived(true);
+    //   } catch {}
+    // }
 
     async function fetchAPI() {
       try {
         const response = await fetch("https://fakestoreapi.com/products");
         let data = await response.json();
-        setResult(data);
-        categoriseItems(data);
+
+        // console.log(data);
+
+        const filteredData = data.filter((val) => {
+          const isCategoryMatch =
+            category === "result" || val.category === category;
+
+          const isSearchMatch = val.title
+            .toLowerCase()
+            .includes(searchedProduct.toLowerCase());
+
+          return isCategoryMatch && isSearchMatch;
+        });
+
+        setResult(() => filteredData);
+        setIsDataArrived(true);
+        // categoriseItems(data);
       } catch (err) {
         console.log(err);
       }

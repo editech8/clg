@@ -5,7 +5,7 @@ import { searchProduct } from "../context/searchProduct";
 
 const NavigationBar = () => {
   const { searchedProduct, setSearchedProduct } = useContext(searchProduct);
-
+  // console.log(searchedProduct)
   return (
     <>
       <div className="navbar">

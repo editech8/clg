@@ -2,10 +2,11 @@
     height: 100vh;
 }
 .navigationBar{
+    position: fixed;
     height: 60px;
     width: 100vw;
-    position: fixed;
     top: 0px;
+    z-index: 1000;
 }
 .products{
     margin-top: 100px;

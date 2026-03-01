@@ -9,6 +9,7 @@
     justify-content: space-between;
     padding: 0% 2%;
     align-items: center;
+    z-index: 1000;
 }
 .logo{
     font-weight: 600;

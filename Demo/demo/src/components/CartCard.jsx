@@ -15,11 +15,28 @@ const CartCard = ({
 }) => {
   const { cart, setCart } = useContext(cartProducts);
 
-  const [cartItemCount, setCartItemCount] = useState(1);
+  function removeProduct() {
+    setCart((prevCart) =>
+      prevCart.filter((currentProduct) => currentProduct.id != id),
+    );
+  }
 
-    function removeProduct() {
-      setCart((prevCart) => prevCart.filter((currentProduct) => currentProduct.id != id))
-    }
+  const productTotalPrice = (price * product.quantity).toFixed(2);
+
+  function updateQuantity(amount) {
+    setCart((prevcart) => {
+      return prevcart.map((currentProduct) => {
+        if (currentProduct.id === id) {
+          return {
+            ...currentProduct,
+            quantity: Math.max(1, currentProduct.quantity + amount),
+          };
+        } else {
+          return currentProduct;
+        }
+      });
+    });
+  }
 
   return (
     <div className="cartCardMain">
@@ -32,22 +49,16 @@ const CartCard = ({
           <button
             className="desButton"
             onClick={() => {
-              setCartItemCount((prev) => {
-                if (prev <= 0) {
-                  return 0;
-                } else {
-                  return prev - 1;
-                }
-              });
+              updateQuantity(-1);
             }}
           >
             -
           </button>
-          <p className="cartItemCount">{cartItemCount}</p>
+          <p className="cartItemCount">{product.quantity}</p>
           <button
             className="incButton"
             onClick={() => {
-              setCartItemCount((prev) => prev + 1);
+              updateQuantity(1);
             }}
           >
             +
@@ -55,11 +66,10 @@ const CartCard = ({
         </div>
       </div>
       <div className="cartItempriceAndDelete">
-        <p className="cartItemPrice">
-          Price: $ {(price * cartItemCount).toFixed(2)}
-        </p>
-        <button className="cartItemDeleteButton"
-        onClick={() => removeProduct()}
+        <p className="cartItemPrice">Price: $ {productTotalPrice}</p>
+        <button
+          className="cartItemDeleteButton"
+          onClick={() => removeProduct()}
         >
           <MdDelete />
         </button>

@@ -12,6 +12,7 @@ const App = () => {
   const [searchedProduct, setSearchedProduct] = useState("");
   const [cartActive, setCartActive] = useState(false);
   const [cart, setCart] = useState([]);
+
   return (
     <BrowserRouter>
       <searchProduct.Provider value={{ searchedProduct, setSearchedProduct }}>

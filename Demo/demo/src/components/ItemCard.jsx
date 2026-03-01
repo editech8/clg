@@ -33,7 +33,7 @@ const ItemCard = ({
           onClick={() => {
             const isItemAlreadyInCart = cart.find((item) => item.id === id);
             if (!isItemAlreadyInCart) {
-              setCart([...cart, product,]);
+              setCart([...cart, {...product, quantity: 1}]);
             } else {
               alert("Item already in cart!");
             }

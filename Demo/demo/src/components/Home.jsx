@@ -22,7 +22,7 @@ const Home = () => {
   const [result, setResult] = useState([]);
   const [categoryLable, setCategoryLable] = useState(category);
 
-  const totalPrice = cart.reduce((acc, val) => val.price + acc, 0).toFixed(2);
+  const totalPrice = cart.reduce((acc, val) => (val.quantity * val.price) + acc, 0).toFixed(2);
 
   useEffect(() => {
     // async function categoriseItems(APIres) {

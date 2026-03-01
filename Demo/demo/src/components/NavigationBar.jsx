@@ -4,11 +4,14 @@ import Drawer from "./Drawer";
 import { searchProduct } from "../context/searchProduct";
 import { FaShoppingCart } from "react-icons/fa";
 import { isCartActive } from "../context/cartActive";
+import { cartProducts } from "../context/cartProducts";
 
 const NavigationBar = () => {
   const { searchedProduct, setSearchedProduct } = useContext(searchProduct);
 
   const { cartActive, setCartActive } = useContext(isCartActive);
+
+  const { cart, setCart } = useContext(cartProducts)
 
   return (
     <>
@@ -28,7 +31,7 @@ const NavigationBar = () => {
             }}
           >
             <FaShoppingCart />
-            <span className="cartCount">6</span>
+            <span className="cartCount">{cart.length}</span>
           </button>
         </div>
         <div className="search">

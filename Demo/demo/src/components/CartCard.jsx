@@ -47,7 +47,7 @@ const CartCard = ({
         <p className="cartItemTitle">{title}</p>
         <div className="incDesButtons">
           <button
-            className="desButton"
+            className="desButton interactiveButton"
             onClick={() => {
               updateQuantity(-1);
             }}
@@ -56,7 +56,7 @@ const CartCard = ({
           </button>
           <p className="cartItemCount">{product.quantity}</p>
           <button
-            className="incButton"
+            className="incButton interactiveButton"
             onClick={() => {
               updateQuantity(1);
             }}
@@ -68,7 +68,7 @@ const CartCard = ({
       <div className="cartItempriceAndDelete">
         <p className="cartItemPrice">Price: $ {productTotalPrice}</p>
         <button
-          className="cartItemDeleteButton"
+          className="cartItemDeleteButton interactiveButton"
           onClick={() => removeProduct()}
         >
           <MdDelete />

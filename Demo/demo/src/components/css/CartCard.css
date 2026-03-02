@@ -80,3 +80,12 @@
   align-items: center;
   margin-left: 15vw;
 }
+.interactiveButton {
+  transition:
+    transform 0.05s,
+    background-color 0.2s;
+}
+.interactiveButton:active {
+  transform: scale(0.95);
+  background: #e0e0e0;
+}

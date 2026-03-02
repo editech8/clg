@@ -25,45 +25,11 @@ const Home = () => {
   const totalPrice = cart.reduce((acc, val) => (val.quantity * val.price) + acc, 0).toFixed(2);
 
   useEffect(() => {
-    // async function categoriseItems(APIres) {
-    //   try {
-    //     // if (category === "result") {
-    //     //   setResult(APIres);
-    //     // } else if (searchedProduct) {
-    //     //   setResult(() => {
-    //     //     return APIres.filter((val) => {
-    //     //       let tempSearch = searchedProduct.toLowerCase();
-    //     //       if (val.title.toLowerCase().includes(tempSearch)) {
-    //     //         return val;
-    //     //       }
-    //     //     });
-    //     //   });
-    //     // } else {
-    //     //   setResult(() => {
-    //     //     return APIres.filter((val) => {
-    //     //       if (val.category === category) {
-    //     //         return val;
-    //     //       }
-    //     //     });
-    //     //   });
-    //     // }
-
-    //     if (category === APIres)
-
-    //     if (category === "result") {
-    //       setResult(APIres);
-    //     } else
-
-    //     setIsDataArrived(true);
-    //   } catch {}
-    // }
 
     async function fetchAPI() {
       try {
         const response = await fetch("https://fakestoreapi.com/products");
         let data = await response.json();
-
-        // console.log(data);
 
         const filteredData = data.filter((val) => {
           const isCategoryMatch =
@@ -78,7 +44,6 @@ const Home = () => {
 
         setResult(() => filteredData);
         setIsDataArrived(true);
-        // categoriseItems(data);
       } catch (err) {
         console.log(err);
       }

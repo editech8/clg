@@ -9,9 +9,9 @@
   box-shadow: rgba(132, 132, 132, 0.444) 5px 5px 5px 5px;
   z-index: 1;
 }
-.cardTitle{
-    height: 70px;
-    overflow: hidden;
+.cardTitle {
+  height: 70px;
+  overflow: hidden;
 }
 .cardImage {
   height: 150px;
@@ -40,7 +40,7 @@
   left: 105px; */
 }
 
-.cartButton > button{
+.cartButton > button {
   border: none;
   width: 100%;
   color: black;
@@ -49,4 +49,13 @@
   margin-top: 10px;
   border-radius: 30px;
   cursor: pointer;
+}
+.interactiveButton {
+  transition:
+    transform 0.05s,
+    background-color 0.2s;
+}
+.interactiveButton:active {
+  transform: scale(0.95);
+  background: #e0e0e0;
 }

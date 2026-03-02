@@ -5,13 +5,16 @@ import { searchProduct } from "../context/searchProduct";
 import { FaShoppingCart } from "react-icons/fa";
 import { isCartActive } from "../context/cartActive";
 import { cartProducts } from "../context/cartProducts";
+import { whichProduct } from "../context/whichProduct";
 
 const NavigationBar = () => {
   const { searchedProduct, setSearchedProduct } = useContext(searchProduct);
 
   const { cartActive, setCartActive } = useContext(isCartActive);
 
-  const { cart, setCart } = useContext(cartProducts)
+  const { cart, setCart } = useContext(cartProducts);
+
+  const { category, setCategory } = useContext(whichProduct);
 
   return (
     <>
@@ -21,7 +24,14 @@ const NavigationBar = () => {
         </div>
         <div className="logo">Brand Logo</div>
         <div className="sections">
-          <button>Home</button>
+          <button
+            onClick={() => {
+              setCategory("result");
+              setCartActive(false);
+            }}
+          >
+            Home
+          </button>
           <button>Services</button>
           <button>Products</button>
           <button>Contact Us</button>

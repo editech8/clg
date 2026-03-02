@@ -30,6 +30,7 @@ const ItemCard = ({
       </div>
       <div className="cartButton">
         <button
+        className="interactiveButton"
           onClick={() => {
             const isItemAlreadyInCart = cart.find((item) => item.id === id);
             if (!isItemAlreadyInCart) {

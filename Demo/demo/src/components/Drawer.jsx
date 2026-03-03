@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./css/Drawer.css";
 import { useContext } from "react";
 import { whichProduct } from "../context/whichProduct";

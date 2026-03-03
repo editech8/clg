@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import "./css/NavigationBar.css";
 import Drawer from "./Drawer";
 import { searchProduct } from "../context/searchProduct";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import NavigationBar from "./NavigationBar";
 import "./css/Home.css";
 import ItemCard from "./ItemCard";
@@ -21,17 +21,23 @@ const Home = () => {
   const [isDataArrived, setIsDataArrived] = useState(false);
   const [result, setResult] = useState([]);
   const [categoryLable, setCategoryLable] = useState(category);
+  const APItries = useRef(10);
+  const arrivedData = useRef([]);
 
-  const totalPrice = cart.reduce((acc, val) => (val.quantity * val.price) + acc, 0).toFixed(2);
+  const totalPrice = cart
+    .reduce((acc, val) => val.quantity * val.price + acc, 0)
+    .toFixed(2);
 
   useEffect(() => {
-
     async function fetchAPI() {
       try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        let data = await response.json();
-
-        const filteredData = data.filter((val) => {
+        if (!isDataArrived) {
+          const response = await fetch("https://fakestoreapi.com/products");
+          const data = await response.json();
+          arrivedData.current = data;
+          setIsDataArrived(true);
+        }
+        const filteredData = arrivedData.current.filter((val) => {
           const isCategoryMatch =
             category === "result" || val.category === category;
 
@@ -43,9 +49,17 @@ const Home = () => {
         });
 
         setResult(() => filteredData);
-        setIsDataArrived(true);
       } catch (err) {
-        console.log(err);
+        if (APItries.current > 0) {
+          console.log(
+            `Data failed to arrive. ${APItries.current} tries remaining.`,
+          );
+          APItries.current--;
+          setTimeout(() => fetchAPI(), 2000);
+        } else {
+          setIsDataArrived(false);
+          console.log("Max tries reached.", err);
+        }
       }
     }
     if (cartActive) {
